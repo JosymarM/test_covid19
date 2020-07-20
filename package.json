@@ -2,10 +2,10 @@
   "name": "test_covid19",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node src/main.js",
-    "dev": "nodemon src/main.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
   "author": "JoSyMaR",
   "license": "ISC",
