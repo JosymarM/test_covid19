@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const path = require('path');
-const morgan = require('morgan');
+
 const app = express();
 
 // View engine setup
@@ -16,17 +16,13 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//MIDDLEWARES
-app.use(morgan('dev'));
-app.set('port', process.env.PORT || 5000);
+
 
 //HANDLE PAGES
-app.get('/', (req, res) => {
+app.get('/src/views', (req, res) => {
     res.render('contact');
 });
 
 
-// Starting the server
-app.listen(app.get('port'), () => {
-    console.log(`Server on port ${app.get('port')}`);
-})
+
+app.listen(3000, () => console.log('Server started...'));
