@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 
 //HANDLE PAGES
-app.get('/src/views', (req, res) => {
+app.get('/', (req, res) => {
     res.render('contact');
 });
 
