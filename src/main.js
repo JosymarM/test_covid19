@@ -1,37 +1,28 @@
-const path = require('path');
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const handleBars = require('express-handlebars').create();
-const publicDir = require('path').join(__dirname, 'public');
-const router = express.Router();
-const app = express();
+const express = require('express')
+const morgan = require('morgan')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const bodyParser = require('body-parser')
+const handlebars = require('express-handlebars').create()
+const app = express()
 
-//
-// Importing routes
-const indexRoutes = require('./routes/index');
 
-//SETTINGS
-app.set('port', process.env.PORT || 8000);
-app.set('views', path.join(__dirname, 'views'));
+app.use(express.static('public'))
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
+app.use(cookieParser('secret'))
+app.use(session({cookie: {maxAge: null}}))
+app.engine('handlebars', handlebars.engine)
+app.set('view engine', 'handlebars')
 
 //MIDDLEWARES
 app.use(morgan('dev'));
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-app.use(cookieParser('secret'));
-app.use(session({cookie: {maxAge: null}}));
-app.engine('handlebars', handleBars.engine);
-app.set('view engine', 'handlebars');
+app.set('port', process.env.PORT || 8088)
 
-app.use(express.urlencoded({extended: false}));
-app.use(express.static(publicDir));
-//routes
-app.use('/', indexRoutes);
-
+//HANDLE PAGES
+app.get('/', (req, res) => {
+    res.render('home')
+})
 
 
 // Starting the server
