@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 //MIDDLEWARES
 app.use(morgan('dev'));
-app.set('port', process.env.PORT || 8088);
+app.set('port', process.env.PORT || 5000);
 
 //HANDLE PAGES
 app.get('/', (req, res) => {
