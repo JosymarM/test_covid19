@@ -1,28 +1,28 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const exphbs = require('express-handlebars');
 const path = require('path');
-
+const publicDir = require('path').join(__dirname, 'public');
+const express = require('express');
+const morgan = require('morgan');
+const hbs = require('express-handlebars');
 const app = express();
 
+// Importing routes
+const indexRoutes = require('./routes/index');
+
 // View engine setup
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
+app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: '/views/layouts/'}));
+app.set('view engine', 'hbs');
+app.locals.layout = false
 
-// Static folder
-app.use('/public', express.static(path.join(__dirname, 'public')));
+//
+app.use(morgan('dev'));
+app.use(express.urlencoded({extended: false}));
+app.use(express.static(publicDir));
 
-// Body Parser Middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use('/', indexRoutes);
 
+//SERVER
+app.set('port', process.env.PORT || 3000);
 
-
-//HANDLE PAGES
-app.get('/', (req, res) => {
-    res.render('contact');
-});
-
-
-
-app.listen(3000, () => console.log('Server started...'));
+app.listen(app.get('port'), () => {
+    console.log(`Server on port ${app.get('port')}`);
+})
