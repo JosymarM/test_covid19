@@ -1,4 +1,10 @@
 {{> container}}
+    {{#if message}}
+      <div style="text-align: center;">
+        <button type="button" class="close" data-dimiss="alert">&times;</button>
+        <strong>{{message.intro}}</strong> {{message.message}}
+      </div>
+      {{/if}}
   <div class="container">
     <h1 class="brand"><span>Acme</span> Web Design</h1>
     <div class="wrapper animated bounceInLeft">
@@ -10,16 +16,11 @@
           <li><i class="fa fa-envelope"></i> test@acme.test</li>
         </ul>
       </div>
-      {{#if message}}
-      <div style="text-align: center;" class="alert alert-{{message.type}}">
-        <button type="button" class="close" data-dimiss="alert">&times;</button>
-        <strong>{{message.intro}}</strong> {{message.message}}
-      </div>
-      {{/if}}
+      
       <div class="contact">
         <h3>Email Us</h3>
-        {{msg}}
-        <form method="POST">
+        
+        <form method="POST" action="send">
           <p>
             <label>Nombres</label>
             <input type="text" name="nombres">
@@ -37,8 +38,8 @@
             <input type="text" name="fono">
           </p>
           <p class="full">
-            <label>Message</label>
-            <textarea name="message" rows="5"></textarea>
+            <label>Mensaje</label>
+            <input name="mensaje" type="text">
           </p>
           <p class="full">
             <button type="submit">Enviar</button>
@@ -47,3 +48,4 @@
       </div>
     </div>
   </div>
+  {{> container2}}

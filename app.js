@@ -9,9 +9,9 @@ const app = express();
 const indexRoutes = require('./routes/index');
 
 // View engine setup
-app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: '/views/layouts/'}));
+app.engine('hbs', hbs({extname: 'hbs'}));
 app.set('view engine', 'hbs');
-app.locals.layout = false
+app.locals.layout = false;
 
 //
 app.use(morgan('dev'));
